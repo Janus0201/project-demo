@@ -1,0 +1,31 @@
+{{ define "sign-up" }}
+{{ template "header" .}}
+<div class="d-flex align-content-center justify-content-center" style="min-height: 85vh;">
+  <div class="d-flex flex-column justify-content-center" style="height: 80vh; width: 100%;">
+    <div class="row justify-content-center">
+      <div class="col-4 form-container">
+        <form method="post" action="/auth/register">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email {{template "required"}}</label>
+            <input type="email" class="form-control" id="email" name="email">
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password {{template "required"}}</label>
+            <input type="password" class="form-control" id="password" name="password">
+          </div>
+          <div class="mb-3">
+          <div class="mb-3">
+            <label for="password_confirm" class="form-label">Password Confirm {{template "required"}}</label>
+            <input type="password_confirm" class="form-control" id="password_confirm" name="password_confirm">
+          </div>
+          <div class="mb-3">
+            Already have an account? <a href="/sign-in">Sign In</a>
+          </div>
+          <button type="submit" class="btn btn-primary">Sign Up</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{{ template "footer" .}}
+{{end}}

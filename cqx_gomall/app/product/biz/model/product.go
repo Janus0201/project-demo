@@ -1,0 +1,43 @@
+package model
+
+import (
+	"context"
+
+	"gorm.io/gorm"
+)
+
+type Product struct {
+	Base
+	Name        string  `json:"name"`
+	Description string  `json:"description"`
+	Picture     string  `json:"picture"`
+	Price       float32 `json:"price"`
+
+	categories []Category `json:"categories" gorm:"many2many:product_category"`
+}
+
+func (p Product) TableName() string {
+	return "product"
+}
+
+type ProductQuery struct {
+	ctx context.Context
+	db  *gorm.DB
+}
+
+func (p ProductQuery) GetById(productId int) (product Product, err error) {
+	err = p.db.WithContext(p.ctx).Model(&Product{}).First(&product, productId).Error
+	return
+}
+
+func (p ProductQuery) SearchProducts(q string) (products []*Product, err error) {
+	err = p.db.WithContext(p.ctx).Model(&Product{}).Where("name LIKE ? or description LIKE ?", "%"+q+"%", "%"+q+"%").Find(&products).Error
+	return
+}
+
+func NewProductQuery(ctx context.Context, db *gorm.DB) *ProductQuery {
+	return &ProductQuery{
+		ctx: ctx,
+		db:  db,
+	}
+}

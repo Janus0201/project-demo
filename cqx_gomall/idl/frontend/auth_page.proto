@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package frontend.auth;
+
+option go_package = "frontend/auth";
+
+import "api.proto";
+
+message Empty {}
+
+message LoginReq {
+   //客户端发起一个 HTTP POST 请求进行用户登录时，"email"字段的值应来自请求体中的表单字段 email
+   string email = 1 [(api.form) = "email"];
+   string password = 2 [(api.form) = "password"];
+   //"next"字段的值应当从 URL 查询参数 next 中提取
+   string next = 3 [(api.query) = "next"];
+}
+
+message RegisterReq {
+   string email = 1 [(api.form) = "email"];
+   string password = 2 [(api.form) = "password"];
+   string password_confirm = 3 [(api.form) = "password_confirm"];
+}
+
+/*
+   当客户端发送一个 RESTful 请求（例如 POST /auth/login）时，gRPC-Gateway 会解析请求路径和方法。
+   根据路径和方法，gRPC-Gateway 找到对应的 gRPC 方法（例如 AuthService.login）。
+   然后，gRPC-Gateway 通过Protobuf中定义的字段映射方法，将 REST 请求中的数据转换为 gRPC 请求消息中的字段，并调用 gRPC 服务端的方法。
+   最后，gRPC-Gateway 将 gRPC 响应转换回 RESTful 响应并返回给客户端。
+*/
+
+service AuthService {
+   rpc login(LoginReq) returns(Empty) {
+      option (api.post) = "/auth/login";
+   }
+   rpc register(RegisterReq) returns(Empty) {
+      option (api.post) = "/auth/register";
+   }
+   rpc logout(Empty) returns(Empty) {
+      option (api.post) = "/auth/logout";
+   }
+}

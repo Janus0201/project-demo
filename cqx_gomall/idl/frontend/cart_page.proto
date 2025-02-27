@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package frontend.cart;
+
+option go_package = "frontend/cart";
+
+import "api.proto";
+
+service CartService {
+  rpc AddItem (AddItemReq) returns (Empty){
+    option (api.post) = "/cart"; 
+  }
+  rpc GetCart (Empty) returns (Empty){
+    option (api.get) = "/cart";
+  }
+}
+
+message AddItemReq {
+  uint32 product_id = 1 [(api.form) = "productId"];
+  uint32 quantity = 2 [(api.form) = "productNum"];
+}
+
+message Empty {}

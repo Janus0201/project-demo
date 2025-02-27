@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package frontend.category;
+
+option go_package = "frontend/category";
+
+import "api.proto";
+
+service CategoryService {
+    /*
+    :category 是路径参数，表示这部分是动态的，具体的值会从客户端请求的 URL 中提取出来
+    例如：GET /category/electronics
+    electronics 是动态参数，会被提取出来并映射到 :category
+    */
+    rpc Category(CategoryReq) returns (Empty) {
+      option (api.get) = "/category/:category";
+    }
+}
+
+message CategoryReq {
+  string category = 1 [(api.path) = "category"];
+}
+
+message Empty {}

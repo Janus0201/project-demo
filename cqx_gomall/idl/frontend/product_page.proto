@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package frontend.product;
+
+option go_package = "frontend/product";
+
+import "api.proto";
+
+/* 
+(api.get)	将 HTTP GET 请求映射到某个 RPC 方法。
+(api.post)	将 HTTP POST 请求映射到某个 RPC 方法。
+(api.put)	将 HTTP PUT 请求映射到某个 RPC 方法。
+(api.delete)	将 HTTP DELETE 请求映射到某个 RPC 方法。
+(api.body)	指定 HTTP 请求体中的字段如何映射到 RPC 请求消息。
+(api.path)	定义 URL 路径参数如何映射到 RPC 请求消息。
+(api.query)	定义查询参数如何映射到 RPC 请求消息。 
+*/
+
+
+service ProductService {
+    /* 
+    option (api.get) 是一种扩展机制，用于将 RPC 方法映射到 HTTP 路由
+    当客户端发起对应路径的 HTTP GET 请求时，gRPC 服务器会将该请求映射调用 GetProduct 方法
+    HTTP 网关充当了 HTTP 和 RPC 之间的桥梁，负责将 HTTP 请求转换为 RPC 调用，并将 RPC 响应转换为 HTTP 响应
+    */
+    rpc GetProduct(GetProductReq) returns (Empty) {
+      option (api.get) = "/product";
+    }
+    rpc SearchProduct(SearchProductReq) returns (Empty) {
+      option (api.get) = "/search";
+    }
+}
+
+message Empty {}
+
+message GetProductReq {
+    uint32 id = 1 [(api.query) = "id"];
+}
+
+message SearchProductReq {
+    string query = 1 [(api.query) = "q"];
+}
