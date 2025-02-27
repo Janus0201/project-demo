@@ -1,0 +1,76 @@
+{
+  "services": [
+    {
+      "name": "user",
+      "address": "10.134.112.52",
+      "port": 8888,
+      "checks": [
+        {
+          "interval": "10s",
+          "timeout": "5s",
+          "tcp": "10.134.112.52:8888"
+        }
+      ]
+    },
+    {
+      "name": "product",
+      "address": "10.134.112.52",
+      "port": 8889,
+      "checks": [
+        {
+          "interval": "10s",
+          "timeout": "5s",
+          "tcp": "10.134.112.52:8889"
+        }
+      ]
+    },
+    {
+      "name": "cart",
+      "address": "10.134.112.52",
+      "port": 8890,
+      "checks": [
+        {
+          "interval": "10s",
+          "timeout": "5s",
+          "tcp": "10.134.112.52:8890"
+        }
+      ]
+    },
+    {
+      "name": "payment",
+      "address": "10.134.112.52",
+      "port": 8891,
+      "checks": [
+        {
+          "interval": "10s",
+          "timeout": "5s",
+          "tcp": "10.134.112.52:8891"
+        }
+      ]
+    },
+    {
+      "name": "checkout",
+      "address": "10.134.112.52",
+      "port": 8892,
+      "checks": [
+        {
+          "interval": "10s",
+          "timeout": "5s",
+          "tcp": "10.134.112.52:8892"
+        }
+      ]
+    },
+    {
+      "name": "order",
+      "address": "10.134.112.52",
+      "port": 8893,
+      "checks": [
+        {
+          "interval": "10s",
+          "timeout": "5s",
+          "tcp": "10.134.112.52:8893"
+        }
+      ]
+    }
+  ]
+}
