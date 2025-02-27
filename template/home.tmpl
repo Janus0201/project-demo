@@ -1,0 +1,23 @@
+{{ define "home" }}
+    {{ template "header" . }}
+    <div class="row row-cols-1 row-cols-md-4 g-3">
+        {{ range $.items }}
+        <div class="col align-self-start">
+            <div class="card m-2 p-3 border-secondary text-center text-bg-light">
+                <div class="card-body row">
+                    <img src="{{ .Picture }}" class="col-lg-6 col-sm-12" alt="..."
+                        style="max-height: 100%; min-height: 100%;">
+                    <div class="col-lg-6 col-sm-12 flex-column align-self-end">
+                        <div class="m-2">
+                            {{ .Name }}
+                        </div>
+                        <div class="m-1">${{ .Price }}</div>
+                        <a href="/product?id={{ .Id }}" class="btn btn-primary">Browse</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ end}}
+    </div>
+    {{ template "footer" . }}
+{{ end }}
